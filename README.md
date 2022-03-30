@@ -49,6 +49,8 @@ https://leetcode-cn.com/problems/shortest-distance-to-a-character
 ### Day3
 
 - 3月30日：做题时间未达标，第一题15m，由于没有代码提示，导致没有发现API错误；第二题，10m中内做题失败，代码冗余，代码水平太差
+
+
 1.编程题：https://bigfrontend.dev/zh/problem/implement-Promise-allSettled
 
 ```javascript
