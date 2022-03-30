@@ -1,12 +1,11 @@
-# everyday-al
-每日手写 及 算法 repo
-主要用来写手写的，算法直接在在线的网站即可，笔记也可以在里面写 or 下载readme.md
+# everyday-algorithms
+每日手写 及 算法 
+
+- 算法目标：10分钟之内运行完成
+- 手写目标：5分钟运行完成
 
 
-算法目标：10分钟之内运行完成
-手写目标：5分钟运行完成
 > 提示：适应一下没有代码提示的编辑器！！！
-
 
 
 #### Day1
@@ -36,9 +35,6 @@ alert(curriedSum(1)(2)(3)); // 6, full currying
 
 1.手写算法
 https://leetcode-cn.com/problems/shortest-distance-to-a-character
-⼊选理由
-①仍然是⼀道简单题，不过⽐昨天的题⽬难度增加⼀点
-②虽然这是⼀个字符串的题⽬，但其实字符串和数组没有本质差别。
 
 2.编程题
 实现symbol polyfill
@@ -50,6 +46,7 @@ https://leetcode-cn.com/problems/shortest-distance-to-a-character
 
 ### Day3
 
+- 3月30日：做题时间未达标，第一题15m，由于没有代码提示，导致没有发现API错误；第二题，10m中内做题失败，代码冗余，代码水平太差
 1.编程题：https://bigfrontend.dev/zh/problem/implement-Promise-allSettled
 
 ```javascript
