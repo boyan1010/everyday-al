@@ -15,6 +15,31 @@ solv：解题
 1.手写算法
 https://leetcode-cn.com/problems/add-to-array-form-of-integer/
 
+
+```javascript
+//  时间复杂度： O(max(n,logk)) 
+funciton resolve(num, k) {
+  const len = num.length;
+  let i = len - 1;
+  const result = []
+  while(i >= 0) {
+    const sum = num[i] + k % 10;
+    result.push(sum % 10);
+    k = Math.floor(k / 10);
+    if(sum >= 10) {
+      k++;
+    }
+    i--;
+  }
+  while(k) {
+    result.push(k % 10);
+    k = Math.floor(k / 10);
+  }
+  return result.reverse();
+}
+
+```
+
 2.编程题
 ```
 //1.手写函数柯里化
