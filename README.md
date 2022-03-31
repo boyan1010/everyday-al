@@ -151,3 +151,67 @@ var addToArrayForm = function(num, k) {
     
 };
 ```
+
+### Day4
+
+- 3月31日：
+  - 手写题：（12分钟）手写关于a、b都为0时，使用===无法区分，借助js中除数为0时不会抛出异常，对结果进行比较，-Infinity !== Infinity 不同（Object.is特别注意0及NaN的判断）
+  - 算法题：毁灭吧，思路都知道，就是写不出来。
+
+1.手写题：https://bigfrontend.dev/zh/problem/implement-Object.is
+
+```javascript
+function is(a, b) {
+  // your code here
+  if(Number.isNaN(a) && Number.isNaN(b)) {
+    return true;
+  }
+  if(a === 0 && b === 0) {
+    return 1 / a === 1 / b;
+  }
+  return a === b;
+}
+```
+
+2.算法题：https://leetcode-cn.com/problems/decode-string/
+
+```javascript
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var decodeString = function(s) {
+    const len = s.length;
+    let i = 0;
+    const stack = [];
+    let num = "";
+    while(i < len) {
+        const c = s[i];
+        if(c === ']') {
+            let char = stack.pop();
+            let str = "";
+            while(char !== '[') {
+                str = char + str;
+                char = stack.pop();
+            }
+            const n = stack.pop();
+            str = str.repeat(n);
+            stack.push(str);
+        } else if(isNumber(c)) {
+            num += c;
+        } else {
+             if(num) {
+                stack.push(Number(num));
+                num = "";
+            }
+            stack.push(c);
+        }
+        i++;
+    }
+    return stack.join("");
+};
+
+function isNumber(c) {
+    return !Number.isNaN(Number(c));
+}
+```
