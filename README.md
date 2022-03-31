@@ -157,6 +157,8 @@ var addToArrayForm = function(num, k) {
 - 3月31日：
   - 手写题：（12分钟）手写关于a、b都为0时，使用===无法区分，借助js中除数为0时不会抛出异常，对结果进行比较，-Infinity !== Infinity 不同（Object.is特别注意0及NaN的判断）
   - 算法题：毁灭吧，思路都知道，就是写不出来。
+    - 测试通过，但是代码逻辑不清晰，解题过程中，部分逻辑混乱，比如数字的获取与push字符及'['的先后选项 -- 代码水平不高
+    - 需要再复习
 
 1.手写题：https://bigfrontend.dev/zh/problem/implement-Object.is
 
