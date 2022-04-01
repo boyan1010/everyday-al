@@ -217,3 +217,82 @@ function isNumber(c) {
     return !Number.isNaN(Number(c));
 }
 ```
+
+### Day5手写 
+1.算法题：https://leetcode-cn.com/problems/implement-queue-using-stacks/
+
+```javascript
+var MyQueue = function() {
+    // 队首出队stack
+    this._de = [];
+    // 入队stack
+    this._en = []
+};
+
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+MyQueue.prototype.push = function(x) {
+    this._en.push(x);
+};
+
+/**
+ * @return {number}
+ */
+MyQueue.prototype.pop = function() {
+    if(this._de.length == 0) {
+        this._mv();
+    }
+    return this._de.pop();
+};
+MyQueue.prototype._mv = function() {
+    while(this._en.length) {
+        this._de.push(this._en.pop())
+    }
+    console.log(this._de, this._en)
+}
+
+/**
+ * @return {number}
+ */
+MyQueue.prototype.peek = function() {
+    const result = this.pop();
+    this._de.push(result);
+    return result;
+};
+
+/**
+ * @return {boolean}
+ */
+MyQueue.prototype.empty = function() {
+    return this._de.length === 0 && this._en.length === 0;
+};
+
+```
+2.手写题：https://bigfrontend.dev/zh/problem/the-angle-between-hour-hand-and-minute-hand-of-a-clock
+
+```javascript
+
+/**
+ * @param {string} time
+ * @returns {number} 
+ */
+const MINUTE = 60;
+const HOUR = 12;
+const ANGLE = 360;
+const EVERY_HOUR_ANGLE = 360 / 12;
+function angle(time) {
+  // your code here
+  // 分针的角度
+  // 12:15
+  const [h, m] = time.split(":");
+  const ma = Math.abs(m / MINUTE * ANGLE);
+  const hour = h % HOUR;
+  const ha = (hour + m / MINUTE) * EVERY_HOUR_ANGLE ;
+  const angle = Math.abs(ma - ha);
+  return Math.round(Math.min(angle, ANGLE - angle))
+}
+const time = "01:00";
+console.log(angle(time));
+```
