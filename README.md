@@ -218,7 +218,7 @@ function isNumber(c) {
 }
 ```
 
-### Day5手写 
+### Day5
 1.算法题：https://leetcode-cn.com/problems/implement-queue-using-stacks/
 
 ```javascript
