@@ -303,16 +303,18 @@ console.log(angle(time));
 
 ```javascript
 var fourSum = function(nums, target) {
-    const quadruplets = [];
+    const result = [];
     if (nums.length < 4) {
-        return quadruplets;
+        return result;
     }
     nums.sort((x, y) => x - y);
     const length = nums.length;
     for (let i = 0; i < length - 3; i++) {
+        // 排除重复项
         if (i > 0 && nums[i] === nums[i - 1]) {
             continue;
         }
+        //  后面的元素都不符合，提前跳出循环
         if (nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) {
             break;
         }
@@ -333,7 +335,7 @@ var fourSum = function(nums, target) {
             while (left < right) {
                 const sum = nums[i] + nums[j] + nums[left] + nums[right];
                 if (sum === target) {
-                    quadruplets.push([nums[i], nums[j], nums[left], nums[right]]);
+                    result.push([nums[i], nums[j], nums[left], nums[right]]);
                     while (left < right && nums[left] === nums[left + 1]) {
                         left++;
                     }
@@ -350,8 +352,9 @@ var fourSum = function(nums, target) {
             }
         }
     }
-    return quadruplets;
+    return result;
 };
+
 
 ```
 
