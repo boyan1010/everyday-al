@@ -375,3 +375,66 @@ Array.prototype.myMap = function(...args) {
   return result
 }
 ```
+
+### Day7
+
+1. 算法： https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero/
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} x
+ * @return {number}
+ */
+var minOperations = function(nums, x) {
+    // 核心：问题等价于求解最长连续子数组，和为sum-x
+    let sum = 0;
+    const n = nums.length;
+    for (let i=0;i<n;i++) {
+            sum += nums[i];
+        }
+       const target = sum - x    
+        if (target<0){
+            return -1
+        }
+        
+        let left = right = 0;
+        // 最长连续数组【和为target】
+        let ans = -1;
+        // 滑动窗口中的数字总和  
+        let cnt = 0       
+        while( right<n) {
+            cnt += nums[right]
+            while(cnt>target) {
+                 cnt -= nums[left]
+                left += 1
+            }
+            
+            if (cnt == target) 
+                ans = Math.max(ans, right-left+1)
+            
+            right += 1
+        }
+            
+        return  ans == -1 ? -1 :   n-ans
+}
+```
+2. 手写：https://bigfrontend.dev/zh/problem/lodash-set
+```javascript
+function set(obj, path, value) {
+  const pathList = Array.isArray(path) ? path : path.replace("[",".").replace("]","").split(".");
+  const length = pathList.length;
+  let temp = obj;
+  pathList.forEach((key, index) => {
+    if(index === length -1) {
+      temp[key] = value;
+    } else {
+      if(!(key in temp)) {
+        const next = pathList[index+1];
+        temp[key] = Number(next) + "" === next ? [] : {};
+      }
+      temp = temp[key];
+    }
+  })
+}
+```
