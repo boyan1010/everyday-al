@@ -438,3 +438,82 @@ function set(obj, path, value) {
   })
 }
 ```
+
+### Day8
+1. 算法： https://leetcode-cn.com/problems/swap-nodes-in-pairs/
+```javascript
+// 迭代
+var swapPairs = function(head) {
+    if(!head || !head.next) {
+        return head;
+    }
+    const newHead = head.next;
+    let prev = null;
+    let next = null;
+    let cur = head;
+    while(cur && cur.next) {
+        next = cur.next.next;
+        cur.next.next = cur;
+        if(prev) {
+            prev.next = cur.next;
+        }
+        cur.next = next;
+        prev = cur;
+        cur = next;
+    }
+    return newHead;
+};
+// 递归
+var swapPairs = function(head) {
+    if(!head || !head.next) {
+        return head;
+    }
+    const swapedList = swapPairs(head.next.next);
+    newHead = head.next;
+    head.next = swapedList;
+    newHead.next = head;
+    return newHead;
+    
+}
+```
+
+2. 手写：https://bigfrontend.dev/zh/problem/add-comma-to-number
+```javascript
+// toLocaleString的api用的比较少
+function addComma(num) {
+  const str = String(num);
+  const numList = str.split('.');
+  const numF = numList.length > 1 ? '.' + numList[1] : '';
+  return Number(numList[0]).toLocaleString() + numF;
+}
+// 正则 
+function addComma(num) {
+  const [number, fraction] = num.toString().split('.');
+  const regex = /(\d)(?=(\d{3})+$)/gism;
+  const commas = number.replace(regex, (_, $1) => `${$1},`);
+  return `${commas}${fraction ? '.' + fraction : ''}`;
+}
+// 前两种方法都是弱项
+// 注意点： const intPart = Math.trunc(num);
+//   const decimalPart = num  % 1; // num - intPart这两种方式浮点数的问题
+function addComma(num) {
+  let result = "";
+  const [int, other] = String(num).split(".");
+  const isNeg = num < 0;
+  const count = int.replace("-", "");
+  const len = count.length;
+  let i = len -1;
+  let counter = 0;
+  while(i>=0) {
+    if( i !== 0 && counter &&  counter % 3 === 0) {
+    console.log("---",result);
+        result = ',' + result;
+    } 
+    result = count[i] + result;
+    counter++;
+    i--;
+  }
+  return `${isNeg ? '-' : ''}${result}${other ? '.' + other : ''}`;
+  
+}
+```
