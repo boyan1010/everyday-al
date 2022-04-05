@@ -520,6 +520,8 @@ function addComma(num) {
 
 
 ### Day9
+
+- 4月5日：算法题的判断条件不确定，解题时间超时
 1. 手写： https://bigfrontend.dev/zh/problem/implement-BigInt-subtraction
 ```javascript
 
