@@ -517,3 +517,65 @@ function addComma(num) {
   
 }
 ```
+
+
+### Day9
+1. 手写： https://bigfrontend.dev/zh/problem/implement-BigInt-subtraction
+```javascript
+
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+function subtract(num1, num2) {
+  // your code here
+  const m= num1.length;
+  const n = num2.length;
+  let i = m - 1;
+  let j = n -1;
+  let carryin = 0;
+  let res = "";
+  while(i>=0 && j >=0) {
+    let p = num1[i--] - num2[j--] + carryin;
+    if(p < 0) {
+      p = p + 10;
+      carryin = -1;
+    } else {
+      carryin = 0;
+    }
+    res = p + res;
+   
+  }
+  return res.replace(/^0*/, "") || '0';
+}
+```
+
+2. 算法: https://leetcode-cn.com/problems/linked-list-cycle-ii/
+```javascript
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function(head) {
+    if(!head || !head.next) {
+        return null;
+    }
+    let slow = head;
+    let fast = head;
+    // fast is null, not cycle list
+    while(fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
+        if(fast === slow) {
+            fast = head;
+            while(slow !== fast) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            return fast;
+        }
+    }
+    return null;
+};
+```
