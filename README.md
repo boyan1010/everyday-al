@@ -581,3 +581,185 @@ var detectCycle = function(head) {
     return null;
 };
 ```
+
+### Day10
+1.算法题：https://leetcode-cn.com/problems/max-chunks-to-make-sorted-ii/
+```javascript
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var maxChunksToSorted = function(arr) {
+    const stack = [];
+    for(let i = 0; i<arr.length;i++) {
+        const cur = arr[i];
+        if(stack.length && cur < stack[stack.length-1]) {
+            const head = stack.pop();
+            while(stack.length && stack[stack.length-1] > cur) {
+                stack.pop();
+            }
+            stack.push(head);
+        } else {
+            stack.push(cur);
+        }
+    }
+    return stack.length;
+};
+```
+
+2.手写题：https://bigfrontend.dev/zh/problem/implement-your-own-URLSearchParams
+```javascript
+ class MyURLSearchParams {
+   /**
+    * @params {string} init
+    */
+   constructor(init) {
+    //  用来保存数据顺序
+    this._paramsList = [];
+    // 用来遍历和查询
+    this._map = new Map();
+    let _initString = String(init);
+    if(_initString.startsWith("?")) {
+      _initString = _initString.slice(1);
+    }
+    const _paramsList = _initString.split("&");
+      _paramsList.forEach(item => {
+        const [key, value] = item.split("=");
+        this.append(key, value)
+      })
+   }
+   
+   /** 
+    * @params {string} name
+    * @params {any} value
+    */
+   append(name, value) {
+     const _value = String(value);
+     this._paramsList.push({
+       key: name,
+       value:_value,
+     });
+     if(this._map.has(name)) {
+        this._map.get(name).push(_value);
+      } else {
+        this._map.set(name, [_value])
+      }
+   }
+   
+   /**
+    * @params {string} name
+    */
+   delete(name) {
+     this._paramsList = this._paramsList.filter(({key}) => {
+       return key !== name
+     });
+     this._map.delete(name);
+   }
+   
+   /**
+    * @returns {Iterator} 
+    */
+   * entries() {
+      for(let item of this._paramsList) {
+        const {key, value} = item;
+        yield [key, value]
+      }
+   }
+   
+   /**
+    * @param {(value, key) => void} callback
+    */
+   forEach(callback) {
+     this._paramsList.forEach(({key, value}) => {
+       callback(value, key)
+     })
+   }
+   
+   /**
+    * @param {string} name
+    * returns the first value of the name
+    */
+   get(name) {
+     if(this.has(name)) {
+       return this._map.get(name)[0]
+     } 
+     return null;
+   }
+   
+   /**
+    * @param {string} name
+    * @return {string[]}
+    * returns the value list of the name
+    */
+   getAll(name) {
+     if(this.has(name)) {
+       return this._map.get(name)
+     }
+     return [];
+   }
+   
+   /**
+    * @params {string} name
+    * @return {boolean}
+    */
+   has(name) {
+     return this._map.has(name)
+   }
+   
+   /**
+    * @return {Iterator}
+    */
+    * keys() {
+      for(let item of this._paramsList) {
+        yield item.key
+      }
+   }
+   
+   /**
+    * @param {string} name
+    * @param {any} value
+    */
+   set(name, value) {
+     const _value = String(value);
+     this._map.set(name, [_value]);
+     let flag = false;
+     this._paramsList = this._paramsList.reduce((acc,item ) => {
+       if((item.key === name && !flag) ) {
+           acc.push({
+             key: name, 
+             _value,
+           })
+       }
+       if(item.key !== name) {
+         acc.push(item)
+       }
+       return acc;
+     }, []);
+   }
+   
+   // sor all key/value pairs based on the keys
+   sort() {
+     this._paramsList.sort(({key: k1}, {key: k2}) => {
+       return k1 < k2 ? -1 : 0
+     })
+   }
+   
+   /**
+    * @return {string}
+    */
+   toString() {
+     return this._paramsList.map(({key, value}) => {
+       return `${key}=${value}`
+     }).join("&");
+   }
+   
+   /**
+    * @return {Iterator} values
+    */
+   *values() {
+    for(let item of this._paramsList) {
+        yield item.value
+      }
+   }
+ }
+```
