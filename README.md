@@ -765,6 +765,7 @@ var maxChunksToSorted = function(arr) {
 ```
 
 ### Day11
+1.  算法题：https://leetcode-cn.com/problems/rotate-list/
  <!--算法附加题  -->
 ```javascript
 //  时间复杂度：O(n)
@@ -800,4 +801,53 @@ function getListLength(head) {
     }
     return count;
 }
+```
+2. 手写： 请实现一个cacheRequest(url,callback)请求缓存方法，保证当使用ajax时，对于同一个API实际在网络层只发出一次请求以节省网络流量，假设已存在request底层方法用于封装ajax请求，调用格式为： request(url, data() => {}).比如如下
+```javascript
+function init() {
+  const map = new Map();
+  return function( url,cb) {
+    const isExited = map.has(url);
+    if(!isExited) {
+      const state = {
+        queue: [cb],
+        status: "pending",
+        result: null,
+      };
+      map.set(url, state);
+      asyncRequest(url).then(res => {
+        state.result = res;
+        state.status = "fulfilled";
+        state.queue.forEach(cb => {
+          cb(res);
+        });
+        state.queue = [];
+      })
+    } else if(map.get(url).status == "pending") {
+      map.get(url).queue.push(cb);  
+    } else {
+      cb(map.get(url).result)
+    }
+  }
+}
+function asyncReqest(url) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const random = Math.random();
+      resolve({
+        url,
+        random,
+      })
+    });
+  });
+}
+const createRequest = init();
+// a.js
+cacheRequest('/user', data => {
+   console.log('我是从A中请求的user，数据为' + JSON.stringify(data));
+})
+// b.js
+cacheRequest('/user', data => {
+   console.log('我是从B中请求的user，数据为' + JSON.stringify(data));
+})
 ```
