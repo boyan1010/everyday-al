@@ -763,3 +763,41 @@ var maxChunksToSorted = function(arr) {
    }
  }
 ```
+
+### Day11
+ <!--算法附加题  -->
+```javascript
+//  时间复杂度：O(n)
+// 空间复杂度：O(1)
+var rotateRight = function(head, k) {
+    if(!head) {
+        return head;
+    }
+    const length = getListLength(head);
+    k = k % length;
+    let slow = head;
+    let fast = head;
+    while(k) {
+        fast = fast.next;
+        k--;
+    }
+    while(fast && fast.next) {
+        slow = slow.next;
+        prev = fast;
+        fast = fast.next;
+    }
+    fast.next = head;
+    const newHead = slow.next;
+    slow.next = null
+    return newHead;
+
+};
+function getListLength(head) {
+    let count = 0;
+    while(head) {
+        count++;
+        head = head.next;
+    }
+    return count;
+}
+```
